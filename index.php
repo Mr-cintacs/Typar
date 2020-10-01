@@ -48,7 +48,9 @@
             </div>
         </div>
     </div>
-    <footer></footer>
+    <footer>
+    <p>a site to see by PAVIT KAILAY</p>
+    </footer>
 
     <script>
         let test=10;
