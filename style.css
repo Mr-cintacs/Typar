@@ -1,0 +1,130 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+header{
+    width:50%;
+    margin:2em auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+#header-icon{
+    width:10%;
+    margin-right:1em;
+
+}
+.main-container{
+    width:90%;
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    grid-template-rows: repeat(3,1fr);
+    margin:auto;
+
+}
+.words-container{
+    width:90%;
+    margin:50px;
+    border:1px black solid;
+    border-radius:5px;
+    grid-column:1/8;
+    grid-row:1/2;
+}
+#words-box{
+    max-height:70px;
+    font-size:1.5rem;
+    padding:0.5em 0.2em;
+    overflow: hidden;
+    line-height:3em;
+}
+.word{
+    margin:0.1em 0.2em;
+    color:rgb(0, 0, 0);
+}
+.incorrect{
+
+    color:rgb(247, 96, 58);
+}
+.correct{
+    color: rgb(87, 245, 140);
+}
+.current-word{
+    /* background:rgb(218, 209, 209); */
+    border-bottom: 4px black solid;
+    border-radius: 4px;
+ 
+}
+
+.input-container{
+    width:90%;
+    margin:50px 50px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+    grid-column:1/6;
+    grid-row:2/3;
+}
+#input-box{
+    font-size:1.2rem;
+    width:75%;
+    margin:auto;
+    padding:1.2em;
+    border:1px black solid;
+    border-radius: 10px 0 0 10px;
+}
+#time{
+    text-align:center;
+    width:25%;
+    font-size:1.2rem;
+    padding:1.2em;
+    border:1px black solid;
+    border-radius:0 10px 10px 0;
+}
+
+#stats{
+    width:90%;
+    display:none;
+    flex-direction:column;
+    justify-content: space-evenly;
+    align-items:center;
+    /* display:none; */
+    grid-column:9/12;
+    grid-row:1/3;
+    border-radius:5px;
+    box-shadow: 2px 0px 5px rgb(0, 0, 0,0.5);
+    background-color:rgb(186, 126, 243);
+    animation-name:showStats;
+    animation-duration:2s;
+    animation-timing-function:ease-in-out;
+    animation-fill-mode: forwards;
+}
+@keyframes showStats{
+    0%{
+        opacity:0;
+    }
+    100%{
+        opacity:100;
+    }
+}
+#title{
+    text-align:center;
+    padding:0.5em;
+    font-size:2rem;
+    color:whitesmoke;
+}
+.box{
+    padding:1em;
+    width:90%;
+    background-color:rgb(224, 217, 217);
+    border-radius:2px;
+}
+#refresh{
+    width:50%;
+    background-color: violet;
+}
+#refresh-img{
+    margin-left:1em;
+    width:30%;
+}
