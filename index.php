@@ -48,6 +48,7 @@
             </div>
         </div>
     </div>
+    <footer></footer>
 
     <script>
         let test=10;
