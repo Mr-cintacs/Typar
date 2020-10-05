@@ -1,0 +1,1 @@
+This a typing tool created which gets a list of the top 300 words which are most commonly used so that the user types the word that occur the most and therefore becomes an expert at these words.
