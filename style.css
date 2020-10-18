@@ -6,6 +6,7 @@
 
 .header-container{
     display:flex;
+    padding:0;
 }
 header{
     position:relative;
@@ -15,7 +16,11 @@ header{
     justify-content:center;
     align-items:flex-start;
 }
-
+#header-icon{
+    width:25%;
+    margin-right:1em;
+    margin-top:-10px;
+}
 .menu-icon{
     align-self:center;
     width:3%;
@@ -80,10 +85,6 @@ header{
     color:whitesmoke;
     transform:scale(1.1);
     transition:0.25s;
-}
-#header-icon{
-    width:5%;
-    margin-right:1em;
 }
 .main-container{
     width:90%;

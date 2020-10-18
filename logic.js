@@ -149,7 +149,7 @@ function timer(timeBegin)
 }
 
 refreshImg.addEventListener('click',refresh);
-function refresh(selection)
+function refresh(flag)
 {
     input_box.value = "";
     clearInterval(intervalId);
@@ -160,6 +160,11 @@ function refresh(selection)
     word_box.innerHTML = '';
     if(menuItemSelected === 'random')
     {
+        console.log('in random refresh');
+        if(flag != false)
+        {
+            quotes();
+        }
         helper.getWords(words_array,false);
     }
     else
@@ -201,6 +206,7 @@ $(options).click(function(){
 
     let selection = $(this).attr('value');
     menuItemSelected = selection;
+    console.log(`current selection is ${menuItemSelected}`);
     if(selection === 'top' || selection === 'advanced')
     {
         $.post("getdata.php",
@@ -222,6 +228,7 @@ $(options).click(function(){
             url : "https://api.paperquotes.com/apiv1/quotes/?lang=en&minlength=15&offset="+ quoteOffset, 
             beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Token b4ae6514eb002ab5d31384cfa2c5661fa13b71fc');},
             success : function(result) { 
+                console.log('got quotes');
                 quotesArray = result.results;
                 let quoteText = '';
                 for(let quote of quotesArray)
@@ -231,11 +238,38 @@ $(options).click(function(){
                 }
                 quoteText = quoteText.replace(/’/g, "'");
                 words_array = quoteText.split(" ");
-                refresh('random',false);
+                refresh(false);
             }, 
             error : function(result) { 
                 console.log('unable to get the data');
             } 
         }); 
+        
     }
 });
+
+function quotes()
+{
+    let quoteOffset = Math.floor(Math.random() * 50001);
+    let quotesArray ;
+    $.ajax({ 
+        type : "GET", 
+        url : "https://api.paperquotes.com/apiv1/quotes/?lang=en&minlength=15&offset="+ quoteOffset, 
+        beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Token b4ae6514eb002ab5d31384cfa2c5661fa13b71fc');},
+        success : function(result) { 
+            console.log('got quotes');
+            quotesArray = result.results;
+            let quoteText = '';
+            for(let quote of quotesArray)
+            {
+                quoteText += `${quote.quote} `;
+                
+            }
+            quoteText = quoteText.replace(/’/g, "'");
+            words_array = quoteText.split(" ");
+        }, 
+        error : function(result) { 
+            console.log('unable to get the data');
+        } 
+    }); 
+}

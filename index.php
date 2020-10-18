@@ -17,8 +17,8 @@
         </div>
 
         <header>
-            <img id="header-icon" src="images/typing.png" alt="A cool icon">
-            <h1>TYPR.</h1>
+            <img id="header-icon" src="images/TYPR-full-mod.png" alt="A cool icon">
+            <!-- <h1>TYPR.</h1> -->
         </header>
     </div>
     
@@ -34,7 +34,7 @@
                 <li id='advanced' value='advanced'>Advanced Words</li>
             </a>
             <a href="#" class="option">
-                <li id='random' value='random'>Random Passage</li>
+                <li id='random' value='random'>Random Quote</li>
             </a>
             <a href="#" class="option">
                 <li id='custom' value='custom'>Custom Text</li>
