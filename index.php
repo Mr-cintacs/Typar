@@ -11,10 +11,37 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <img id="header-icon" src="images/typing.png" alt="A cool icon">
-        <h1>TYPR.</h1>
-    </header>
+    <div class="header-container">
+        <div class="menu-icon">
+            <img id='menu-img' src="images/menu.png" alt="an icon for the menu">
+        </div>
+
+        <header>
+            <img id="header-icon" src="images/typing.png" alt="A cool icon">
+            <h1>TYPR.</h1>
+        </header>
+    </div>
+    
+    <div id="menu">
+        <div class='close-menu-icon'>
+            <img id='close-menu-img'src="images/close-icon.png" alt="an icon for closing the menu">
+        </div>
+        <ul class='options'>
+            <a href="#" class="option">
+                <li id='top' value='top'>Top Words</li>
+            </a>
+            <a href="#" class="option">
+                <li id='advanced' value='advanced'>Advanced Words</li>
+            </a>
+            <a href="#" class="option">
+                <li id='random' value='random'>Random Passage</li>
+            </a>
+            <a href="#" class="option">
+                <li id='custom' value='custom'>Custom Text</li>
+            </a>
+        </ul>
+    </div>
+   
 
 
 
@@ -52,10 +79,11 @@
     <p>a site to see by PAVIT KAILAY</p>
     </footer>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        let test=10;
         let words_array = JSON.parse('<?php echo json_encode($words_arr); ?>');
     </script>
-    <script src="logic.js"></script>
+    <script type= module src="logic.js"></script>
+    <script src='helper.js' type='module'></script>
 </body>
 </html>

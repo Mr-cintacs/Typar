@@ -1,46 +1,28 @@
+import * as helper from "./helper.js";
 let word_box = document.getElementById('words-box');
 let input_box = document.getElementById('input-box');
 let time_box = document.querySelector('#time');
 let refreshImg = document.querySelector('#refresh-img');
 let statsBox = document.querySelector('#stats');
+let menuIcon = document.querySelector('.menu-icon');
+let menuItemSelected = 'top';
 
-let randomizeWords = (words_array) =>{
-
-    let i, temp, randomIndex;
-
-    for(i=words_array.length -1; i>=0; i--)
-    {
-        randomIndex = Math.floor(Math.random() * words_array.length);
-
-        temp = words_array[randomIndex];
-        words_array[randomIndex] = words_array[i];
-        words_array[i] = temp;
-    }
-
-};
-
-let getWords = (words_array)=>{
-    randomizeWords(words_array);
-    for(let word of words_array)
-    {   word_box.innerHTML +='<span class="word">' + word + '</span>' + ' '  ;
-    }
-};
-
-getWords(words_array);
+helper.getWords(words_array,true);
 let word_spans =document.querySelectorAll('.word');
 let timerStart = false, startTime, endTime, currentTime = 60;
 let index = 0;
 let keyStrokesTillNow = 0, totalKeyStrokes = 0;
 let correct_words = 0, wrong_words = 0, word_status;
 let intervalId = 0;
+let charsTyped = 0;
 
 input_box.addEventListener('keydown',(e)=>{
-
+    console.log(`the number words in the text are = ${word_spans.length}`);
     if(timerStart == false)
     {
         startTime = Date.now();
         timerStart = true;
-        intervalId = timer(Date.now());
+        intervalId = timer(Date.now());//TIMER STARTED
     }
     
     word_spans[index].scrollIntoView();
@@ -49,67 +31,75 @@ input_box.addEventListener('keydown',(e)=>{
     if(e.key === ' ')
     {
         e.preventDefault();
-        keyStrokesTillNow = word_spans[index].textContent.length + 1;
-        totalKeyStrokes = totalKeyStrokes + keyStrokesTillNow;
-
-        if(word_status)
+        if(input_box.value !== '')
         {
-            correct_words++;
-            word_spans[index].classList.add('correct');
-        }
-        else{
-            wrong_words++;
-        }
+            keyStrokesTillNow = word_spans[index].textContent.length + 1;
+            totalKeyStrokes = totalKeyStrokes + keyStrokesTillNow;
+            //&& word_spans[index].textContent.length == input_box.value.length//move forward if all correct logic
+            if(charsTyped !== word_spans[index].textContent.length)
+            {
+                word_status = false;
+            }
+            console.log(`word status is = ${word_status}`);
+            if(word_status === true )
+            {
+                correct_words++;
+                word_spans[index].classList.add('correct');
+            }
+            if(word_status === false)
+            {
+                word_spans[index].classList.add('incorrect');
+                wrong_words++;
+            }
+            word_spans[index].classList.remove('current-word');
+            input_box.value = '';
+            index++;
+            word_spans[index].classList.add('current-word');
+            word_spans[index].scrollIntoView();
 
-        word_spans[index].classList.remove('current-word');
-        input_box.value = '';
-        index++;
-        word_spans[index].classList.add('current-word');
-        word_spans[index].scrollIntoView();
+            word_status = 'undefined'; 
+        }
+       
     }
 
     
     //if((e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 97 && e.keyCode <= 122))
     else if(e.key >= 'a' && e.key <= 'z')
     {        
+        word_status = 'undefined';
         let value = input_box.value + e.key;
         let wordStr = word_spans[index].textContent;
-        checkingLogic(value, wordStr, word_spans[index]);
+        word_status = checkingLogic(value, wordStr, word_spans[index]);
     }
 
     else if(e.code == 'Backspace')
     {
-        let value = input_box.value;
+        let currentValue = input_box.value;
+        let valueAfterBackspce = currentValue.slice(0,currentValue.length-1);
+        console.log(`the value after backspace is ${valueAfterBackspce}`);
         let wordStr = word_spans[index].textContent;
-        checkingLogic(value, wordStr, word_spans[index]);
+        word_status = checkingLogic(valueAfterBackspce, wordStr, word_spans[index]);
     }
 
-    // if(index + 1 > 3)//LENGTH BASED STOPAGE
-    // {
-    //     input_box.disabled = true;
-    //     input_box.placeholder = 'Test finished';
-    //     endTime = Date.now();
-    //     calculate_stats(totalKeyStrokes, startTime, endTime, correct_words, wrong_words);
-    // }
-    // if(currentTime <= 0)
-    // {
-    //     console.log('timer finish');
-    //     input_box.disabled = true;
-    //     input_box.placeholder = 'Test finished';
-    //     endTime = Date.now();
-    //     clearInterval(intervalId);
-    //     calculate_stats(totalKeyStrokes, startTime, endTime, correct_words, wrong_words);        
-
-    // }
+    if(index + 1 > 301)//LENGTH BASED STOPAGE
+    {
+        clearInterval(intervalId);
+        input_box.disabled = true;
+        input_box.placeholder = 'Test finished';
+        endTime = Date.now();
+        calculate_stats(totalKeyStrokes, startTime, endTime, correct_words, wrong_words);
+    }
 });
 
 function checkingLogic(inputStr, wordStr, word)
 {
+    charsTyped = inputStr.length;
     console.log(`checking word ${wordStr}`);
     console.log(`checking string ${inputStr}`);
+    let status;
     if(wordStr.includes(inputStr))
     {
-        word_status = true;
+        status = true;
         if(word.classList.contains('incorrect'))
         {
             word.classList.remove('incorrect');
@@ -117,10 +107,11 @@ function checkingLogic(inputStr, wordStr, word)
     }
     else
     {
-        word_status = false;
+        status = false;
         word.classList.add("incorrect");
     }
     console.log("     ");
+    return status;
 }
 
 function calculate_stats(entries, startTime, endTime, correct, wrong)
@@ -134,7 +125,7 @@ function calculate_stats(entries, startTime, endTime, correct, wrong)
 
     let timeTaken = Math.floor((endTime - startTime)/1000);
     let minutesTaken = timeTaken/60;
-    let netWpm = ((entries/5) - wrong )/ 1;
+    let netWpm = ((entries/5) - wrong )/ minutesTaken;
     let grossWpm = ((entries/5)/minutesTaken);
     let accuracy = (netWpm/grossWpm) * 100;
 
@@ -154,7 +145,6 @@ function timer(timeBegin)
         currentTime = 60 - time;
         if(currentTime <10)
         {
-            console.log('flagged');
             time_box.textContent = "0:0" + currentTime;    
         }
         else
@@ -171,13 +161,120 @@ function timer(timeBegin)
             clearInterval(intervalId);
             calculate_stats(totalKeyStrokes, startTime, endTime, correct_words, wrong_words);        
         }
-        console.log(time);
     
     },1000);
 
     return intervalId;
 }
-refreshImg.addEventListener('onclick',function (e){
+
+refreshImg.addEventListener('click',refresh);
+function refresh(selection)
+{
+    input_box.value = "";
+    clearInterval(intervalId);
+    time_box.textContent = "1:00";
     input_box.disabled = false;
-    statusBox.display = 'none';
+    statsBox.style.display = 'none';
+    input_box.placeholder = 'Type here...';
+    word_box.innerHTML = '';
+    if(menuItemSelected === 'random')
+    {
+        getWords(words_array,false);
+    }
+    else
+    {
+        getWords(words_array,true);
+    }
+    
+    word_spans =document.querySelectorAll('.word');
+    index = 0, keyStrokesTillNow = 0, totalKeyStrokes = 0;
+    correct_words = 0, wrong_words = 0;
+    timerStart = false;
+    word_spans[index].scrollIntoView();
+}
+
+let menu = document.querySelector('#menu');
+let mainContainer = document.querySelector('.main-container');
+
+menuIcon.addEventListener('click',function(e){
+    console.log('menu opened');
+    menu.style.display = 'block';
+    menu.style.width = '25%';
+    mainContainer.style.marginLeft = '30%';
+});
+
+let menuCloseIcon = document.querySelector('.close-menu-icon');
+menuCloseIcon.addEventListener('click',function(e){
+    console.log('menu closed');
+    menu.style.width = '0';
+    mainContainer.style.marginLeft = '0%';
+});
+
+//******************//
+//AJAX FUNTIONALITY//
+//****************//
+
+
+let options = document.querySelectorAll('.options li');
+$(options).click(function(){
+
+    let selection = $(this).attr('value');
+    menuItemSelected = selection;
+    if(selection === 'top' || selection === 'advanced')
+    {
+        $.post("getdata.php",
+        {
+            selection: selection
+        },
+        function(data,status)
+        {
+            console.log('ajax called');
+            words_array = JSON.parse(data);
+            refresh('top/adv');
+        });
+    }
+    else if(selection === 'random'){
+
+        let quoteOffset = Math.floor(Math.random() * 50001);
+        let quotesArray ;
+            $.ajax({ 
+                type : "GET", 
+                url : "https://api.paperquotes.com/apiv1/quotes/?lang=en&minlength=15&offset="+ quoteOffset, 
+                beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Token b4ae6514eb002ab5d31384cfa2c5661fa13b71fc');},
+                success : function(result) { 
+                    quotesArray = result.results;
+                    let quoteText = '';
+                    for(let quote of quotesArray)
+                    {
+                        quoteText += `${quote.quote} `;
+                        
+                    }
+                    quoteText = quoteText.replace(/’/g, "'");
+                    console.log(quoteText);
+                    words_array = quoteText.split(" ");
+                    refresh('random',false);
+                }, 
+                error : function(result) { 
+                  //handle the error
+                } 
+              }); 
+
+        // if(quotesArray == 'undefined')
+        // {
+        //     let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        //     let targetUrl = 'https://opinionated-quotes-api.gigalixirapp.com/v1/quotes';
+        //     fetch(proxyUrl + targetUrl)
+        //     .then(response => {
+        //         response.json().then(function(data) {
+        //             console.log(data);
+        //           });
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+                
+        //     });
+        // }
+        
+    }
+    
 });

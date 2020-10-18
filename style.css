@@ -3,17 +3,87 @@
     padding:0;
     box-sizing:border-box;
 }
+
+.header-container{
+    display:flex;
+}
 header{
-    width:50%;
-    margin:2em auto;
+    position:relative;
+    width:80%;
+    margin:1em auto;
     display:flex;
     justify-content:center;
+    align-items:flex-start;
+}
+
+.menu-icon{
+    align-self:center;
+    width:3%;
+    height:35px;
+    background:whitesmoke;
+    display:flex;
+    flex-direction:column;
     align-items:center;
+    padding:0.4em 0.4em;
+    border-radius:5px;
+    margin-left:1em;
+    box-shadow:1px 1px 3px 0 rgb(0, 0, 0,0.5);
+}
+#menu-img{
+    width:95%;
+}
+.close-menu-icon{
+    width:30%;
+    margin-top:25px;
+    margin-left:auto;
+    margin-right:15px;
+}
+#close-menu-img{
+    width:60%;
+}
+.menu-icon:hover {
+    box-shadow:5px 5px 10px 0 rgb(0, 0, 0,0.5);
+   
+}
+#menu{
+    background-color:rgb(187, 187, 187);
+    width:0;
+    height:100vh;
+    position:fixed;
+    top:0;
+    left:0;
+    transition:0.5s;
+    overflow:hidden;
+    /* box-shadow: 10px 10px 0 100vw rgb(0, 0, 0,0.8); */
+}
+
+.options{
+    width:80%;
+    /* min-height:800px; */
+    height:100vh;
+    list-style:none;
+    padding:1em;
+    display:flex;
+    margin-top:3em;
+    flex-direction:column;
+    justify-content:flex-start;
+}
+.option{
+    min-width:170px;
+    text-decoration:none;
+    font-size:1.6rem;
+    margin:1em;
+    color:black;
+    align-self:flex-start;
+}
+.option:hover{
+    color:whitesmoke;
+    transform:scale(1.1);
+    transition:0.25s;
 }
 #header-icon{
-    width:10%;
+    width:5%;
     margin-right:1em;
-
 }
 .main-container{
     width:90%;
@@ -21,6 +91,8 @@ header{
     grid-template-columns:repeat(12,1fr);
     grid-template-rows: repeat(3,1fr);
     margin:auto;
+    transition:margin-left 0.5s;
+    overflow:hidden;
 
 }
 .words-container{
@@ -121,10 +193,18 @@ header{
     border-radius:2px;
 }
 #refresh{
-    width:50%;
-    background-color: violet;
+    width:20%;
+    margin-left:1em;
+    border:none;
+    background-color:transparent;
+    border-radius:20px;
+    padding:0.5em;
 }
 #refresh-img{
-    margin-left:1em;
-    width:30%;
+    width:70%;
+}
+#refresh:hover{
+    transform:scale(1.1);
+    transition:all 0.5s;
+    background-color:#ccc;
 }
