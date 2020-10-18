@@ -50,10 +50,14 @@ function calculate_stats(entries, startTime, endTime, correct, wrong)
     let grossWpm = ((entries/5)/minutesTaken);
     let accuracy = (netWpm/grossWpm) * 100;
 
+    if(isNaN(accuracy))
+    {
+        accuracy = 'N/A';
+    }
+
     wpm.textContent = netWpm;
     correctField.textContent = correct;
     wrongField.textContent = wrong;
     accField.textContent = accuracy;
 }
 
-let value = 10;

@@ -83,7 +83,7 @@
     <script>
         let words_array = JSON.parse('<?php echo json_encode($words_arr); ?>');
     </script>
-    <script type= module src="logic.js"></script>
     <script src='helper.js' type='module'></script>
+    <script type= module src="logic.js"></script>
 </body>
 </html>

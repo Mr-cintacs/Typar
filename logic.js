@@ -7,7 +7,8 @@ let refreshImg = document.querySelector('#refresh-img');
 let statsBox = document.querySelector('#stats');
 let menuIcon = document.querySelector('.menu-icon');
 let menuItemSelected = 'top';
-let word_spans =document.querySelectorAll('.word');
+helper.getWords(words_array,true);
+let word_spans = document.querySelectorAll('.word');
 
 let timerStart = false, startTime, endTime, currentTime = 60;
 let index = 0, keyStrokesTillNow = 0, totalKeyStrokes = 0;
@@ -15,21 +16,25 @@ let correct_words = 0, wrong_words = 0, word_status;
 let intervalId = 0;
 let charsTyped = 0;
 
-helper.getWords(words_array,true);
-
 input_box.addEventListener('keydown',(e)=>{
+
+    let specialChars = " .,?!";
+    if(specialChars.includes(e.key))
+    {
+        console.log(`special character ${e.key}`);
+    }
     if(timerStart == false)
     {
         startTime = Date.now();
         timerStart = true;
         intervalId = timer(Date.now());//TIMER STARTED
     }
-    
     word_spans[index].scrollIntoView();
     word_spans[index].classList.add('current-word');
 
     if(e.key === ' ')
     {
+        
         e.preventDefault();
         if(input_box.value !== '')
         {
@@ -56,7 +61,6 @@ input_box.addEventListener('keydown',(e)=>{
             index++;
             word_spans[index].classList.add('current-word');
             word_spans[index].scrollIntoView();
-
             word_status = 'undefined'; 
         }
        
@@ -64,7 +68,7 @@ input_box.addEventListener('keydown',(e)=>{
 
     
     //if((e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 97 && e.keyCode <= 122))
-    else if(e.key >= 'a' && e.key <= 'z')
+    else if(e.key >= 'a' && e.key <= 'z' || specialChars.includes(e.key))
     {        
         word_status = 'undefined';
         let value = input_box.value + e.key;
@@ -132,6 +136,7 @@ function timer(timeBegin)
         if(currentTime <= 0)
         {
             input_box.disabled = true;
+            console.log('called');
             input_box.placeholder = 'Test finished';
             endTime = Date.now();
             clearInterval(intervalId);
