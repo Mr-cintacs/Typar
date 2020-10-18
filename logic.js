@@ -1,4 +1,5 @@
 import * as helper from "./helper.js";
+
 let word_box = document.getElementById('words-box');
 let input_box = document.getElementById('input-box');
 let time_box = document.querySelector('#time');
@@ -6,18 +7,17 @@ let refreshImg = document.querySelector('#refresh-img');
 let statsBox = document.querySelector('#stats');
 let menuIcon = document.querySelector('.menu-icon');
 let menuItemSelected = 'top';
-
-helper.getWords(words_array,true);
 let word_spans =document.querySelectorAll('.word');
+
 let timerStart = false, startTime, endTime, currentTime = 60;
-let index = 0;
-let keyStrokesTillNow = 0, totalKeyStrokes = 0;
+let index = 0, keyStrokesTillNow = 0, totalKeyStrokes = 0;
 let correct_words = 0, wrong_words = 0, word_status;
 let intervalId = 0;
 let charsTyped = 0;
 
+helper.getWords(words_array,true);
+
 input_box.addEventListener('keydown',(e)=>{
-    console.log(`the number words in the text are = ${word_spans.length}`);
     if(timerStart == false)
     {
         startTime = Date.now();
@@ -87,15 +87,15 @@ input_box.addEventListener('keydown',(e)=>{
         input_box.disabled = true;
         input_box.placeholder = 'Test finished';
         endTime = Date.now();
-        calculate_stats(totalKeyStrokes, startTime, endTime, correct_words, wrong_words);
+        helper.calculate_stats(totalKeyStrokes, startTime, endTime, correct_words, wrong_words);
     }
 });
 
 function checkingLogic(inputStr, wordStr, word)
 {
     charsTyped = inputStr.length;
-    console.log(`checking word ${wordStr}`);
-    console.log(`checking string ${inputStr}`);
+    // console.log(`checking word ${wordStr}`);
+    // console.log(`checking string ${inputStr}`);
     let status;
     if(wordStr.includes(inputStr))
     {
@@ -114,29 +114,6 @@ function checkingLogic(inputStr, wordStr, word)
     return status;
 }
 
-function calculate_stats(entries, startTime, endTime, correct, wrong)
-{
-    statsBox.style.display = 'flex';
-
-    let wpm = document.querySelector('#wpm');
-    let correctField = document.querySelector('#correct-words');
-    let wrongField = document.querySelector('#wrong-words');
-    let accField = document.querySelector('#accuracy');
-
-    let timeTaken = Math.floor((endTime - startTime)/1000);
-    let minutesTaken = timeTaken/60;
-    let netWpm = ((entries/5) - wrong )/ minutesTaken;
-    let grossWpm = ((entries/5)/minutesTaken);
-    let accuracy = (netWpm/grossWpm) * 100;
-
-    wpm.textContent = netWpm;
-    correctField.textContent = correct;
-    wrongField.textContent = wrong;
-    accField.textContent = accuracy;
-}
-
-let timeBegin = Date.now();
-
 function timer(timeBegin)
 {
     let intervalId = setInterval(function(){
@@ -154,12 +131,11 @@ function timer(timeBegin)
         
         if(currentTime <= 0)
         {
-            console.log('timer finish');
             input_box.disabled = true;
             input_box.placeholder = 'Test finished';
             endTime = Date.now();
             clearInterval(intervalId);
-            calculate_stats(totalKeyStrokes, startTime, endTime, correct_words, wrong_words);        
+            helper.calculate_stats(totalKeyStrokes, startTime, endTime, correct_words, wrong_words);        
         }
     
     },1000);
@@ -179,11 +155,11 @@ function refresh(selection)
     word_box.innerHTML = '';
     if(menuItemSelected === 'random')
     {
-        getWords(words_array,false);
+        helper.getWords(words_array,false);
     }
     else
     {
-        getWords(words_array,true);
+        helper.getWords(words_array,true);
     }
     
     word_spans =document.querySelectorAll('.word');
@@ -210,10 +186,10 @@ menuCloseIcon.addEventListener('click',function(e){
     mainContainer.style.marginLeft = '0%';
 });
 
+
 //******************//
 //AJAX FUNTIONALITY//
 //****************//
-
 
 let options = document.querySelectorAll('.options li');
 $(options).click(function(){
@@ -228,53 +204,33 @@ $(options).click(function(){
         },
         function(data,status)
         {
-            console.log('ajax called');
             words_array = JSON.parse(data);
             refresh('top/adv');
         });
     }
-    else if(selection === 'random'){
-
+    else if(selection === 'random')
+    {
         let quoteOffset = Math.floor(Math.random() * 50001);
         let quotesArray ;
-            $.ajax({ 
-                type : "GET", 
-                url : "https://api.paperquotes.com/apiv1/quotes/?lang=en&minlength=15&offset="+ quoteOffset, 
-                beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Token b4ae6514eb002ab5d31384cfa2c5661fa13b71fc');},
-                success : function(result) { 
-                    quotesArray = result.results;
-                    let quoteText = '';
-                    for(let quote of quotesArray)
-                    {
-                        quoteText += `${quote.quote} `;
-                        
-                    }
-                    quoteText = quoteText.replace(/’/g, "'");
-                    console.log(quoteText);
-                    words_array = quoteText.split(" ");
-                    refresh('random',false);
-                }, 
-                error : function(result) { 
-                  //handle the error
-                } 
-              }); 
-
-        // if(quotesArray == 'undefined')
-        // {
-        //     let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        //     let targetUrl = 'https://opinionated-quotes-api.gigalixirapp.com/v1/quotes';
-        //     fetch(proxyUrl + targetUrl)
-        //     .then(response => {
-        //         response.json().then(function(data) {
-        //             console.log(data);
-        //           });
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-                
-        //     });
-        // }
-        
+        $.ajax({ 
+            type : "GET", 
+            url : "https://api.paperquotes.com/apiv1/quotes/?lang=en&minlength=15&offset="+ quoteOffset, 
+            beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Token b4ae6514eb002ab5d31384cfa2c5661fa13b71fc');},
+            success : function(result) { 
+                quotesArray = result.results;
+                let quoteText = '';
+                for(let quote of quotesArray)
+                {
+                    quoteText += `${quote.quote} `;
+                    
+                }
+                quoteText = quoteText.replace(/’/g, "'");
+                words_array = quoteText.split(" ");
+                refresh('random',false);
+            }, 
+            error : function(result) { 
+                console.log('unable to get the data');
+            } 
+        }); 
     }
-    
 });
