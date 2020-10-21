@@ -46,7 +46,7 @@ function calculate_stats(entries, startTime, endTime, correct, wrong)
 
     let timeTaken = Math.floor((endTime - startTime)/1000);
     let minutesTaken = timeTaken/60;
-    let netWpm = ((entries/5) - wrong )/ minutesTaken;
+    let netWpm = Math.floor(((entries/5) - wrong )/ minutesTaken);
     let grossWpm = ((entries/5)/minutesTaken);
     let accuracy = ((netWpm/grossWpm) * 100) + '%';
 

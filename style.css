@@ -145,7 +145,7 @@ header{
     background-color:#F6DACB;
     align-self:end;
     justify-self:center;
-    padding:1em;
+    padding:0.3em;
     margin-left:-30px;
     transition: box-shadow 0.5s ease-in-out,transform 0.5s ease-in-out;
     box-shadow: -5px 5px rgb(0, 0,0,0.5);
@@ -185,7 +185,7 @@ header{
 
 .input-container{
     margin-top:20px;
-    margin-left:15px;
+    margin-left:8em;
     justify-self:center;
     width:90%;
     display:flex;
@@ -341,6 +341,7 @@ header{
     background-color:transparent;
     border-radius:20px;
     padding:0.25em;
+    outline:none;
 }
 #refresh-img{
     width:80%;
@@ -356,6 +357,7 @@ header{
     font-size:1.2rem;
     color:#f0efeb;
     text-align:center;
+    height:40%;
     /* position:fixed;
     bottom:0;
     right:0;
