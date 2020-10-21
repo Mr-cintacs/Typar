@@ -126,6 +126,10 @@ header{
     color:whitesmoke;
     transform:scale(1.2);
 }
+.info{
+    font-size:1rem;
+    color:black;
+}
 .main-container{
     width:90%;
     display:grid;

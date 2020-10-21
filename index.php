@@ -44,6 +44,7 @@
             </a>
             <a href="#" class="option">
                 <li id='custom' value='custom'>Custom Text</li>
+                <p class='info'>coming soon!!!</p>
             </a>
         </ul>
     </div>

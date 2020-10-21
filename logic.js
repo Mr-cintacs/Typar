@@ -187,12 +187,15 @@ menuIcon.addEventListener('click',function(e){
     menu.style.display = 'block';
     menu.style.width = '25%';
     mainContainer.style.marginLeft = '30%';
+    mainContainer.style.filter = 'blur(5px)';
 });
 
 let menuCloseIcon = document.querySelector('.close-menu-icon');
 menuCloseIcon.addEventListener('click',function(e){
     menu.style.width = '0';
     mainContainer.style.marginLeft = '62px';
+    mainContainer.style.filter = 'none';
+    
 })
 
 
