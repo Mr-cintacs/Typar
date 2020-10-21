@@ -12,13 +12,19 @@
 </head>
 <body>
     <div class="header-container">
+
         <div class="menu-icon">
             <img id='menu-img' src="images/menu.png" alt="an icon for the menu">
         </div>
 
         <header>
-            <img id="header-icon" src="images/TYPR-full-mod.png" alt="A cool icon">
-            <!-- <h1>TYPR.</h1> -->
+            <div id="header-logo">
+                <img id="header-logo-part" src="images/T.png" alt="T of TYPR">
+                <img id="header-logo-part" src="images/Y.png" alt="Y of TYPR">
+                <img id="header-logo-part" src="images/P.png" alt="P of TYPR">
+                <img id="header-logo-part" src="images/R.png" alt="R of TYPR">
+            </div>
+            
         </header>
     </div>
     
@@ -53,31 +59,34 @@
         <div class="input-container">
             <input type="text" id="input-box" placeholder="type here...." name="input" >
             <span id='time'>1:00</span>
-            <button id='refresh'><img id='refresh-img' src="images/refresh2.png" alt="refresh"></button>
+            <button id='refresh'><img id='refresh-img' src="images/refreshTwo.png" alt="refresh"></button>
         </div>
     
         <div id="stats">
-            <div id="title">Stats</div>
-            <div class="box">
-                <p>Net WPM : <span id='wpm' class='result'></span></p>
+            <div class="main-box">
+                <p class='main'>Net WPM : <span id='wpm' class='result'></span></p>
+            </div>
+            <div class="comment-box">
+                <p class='comment'></p>
+            </div>
+            <div class="other-box">
+                <p class='other'>Correct Words : <span id='correct-words' class='result'></span></p>
             </div>
     
-            <div class="box">
-                <p>Correct Words : <span id='correct-words' class='result'></span></p>
+            <div class="other-box">
+                <p class='other'>Wrong Words : <span id='wrong-words' class='result'></span></p>
             </div>
     
-            <div class="box">
-                <p>Wrong Words : <span id='wrong-words' class='result'></span></p>
-            </div>
-    
-            <div class="box">
-                <p>Accuracy : <span id='accuracy' class='result'></span></p>
+            <div class="other-box">
+                <p class='other'>Accuracy : <span id='accuracy' class='result'></span></p>
             </div>
         </div>
+
     </div>
-    <footer>
-    <p>a site to see by PAVIT KAILAY</p>
+    <footer class='footer'>
+            <p>A site to see by Pavit Kailay</p>
     </footer>
+   
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>

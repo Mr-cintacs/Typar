@@ -194,7 +194,7 @@ menuCloseIcon.addEventListener('click',function(e){
     console.log('menu closed');
     menu.style.width = '0';
     mainContainer.style.marginLeft = '0%';
-});
+})
 
 
 //******************//
