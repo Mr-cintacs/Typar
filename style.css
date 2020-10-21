@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 *{
     margin:0;
@@ -75,6 +76,14 @@ header{
 
 #menu{
     background-color:#B56576;
+    background: repeating-linear-gradient(
+    45deg,
+    #B56576,
+    #B56576 10px,
+    #C38391 10px,
+    #C38391 20px
+        );
+    border-radius:0 10px 10px 0;
     width:0;
     height:100vh;
     position:fixed;
@@ -82,7 +91,7 @@ header{
     left:0;
     transition:0.5s;
     overflow:hidden;
-    font-family:'Fjalla One', 'sans-serif';
+    font-family: 'Ubuntu', sans-serif;
     /* box-shadow: 10px 10px 0 100vw rgb(0, 0, 0,0.8); */
 }
 
@@ -100,7 +109,7 @@ header{
 .option{
     min-width:170px;
     text-decoration:none;
-    font-size:1.8rem;
+    font-size:1.7rem;
     margin:1em;
     color:#F2E3E7;
     align-self:flex-start;
@@ -111,8 +120,7 @@ header{
       0 -1px 0 #fff, 
       0 1px 0 #2e2e2e, 
       0 2px 0 #2c2c2c, 
-      0 3px 0 #2a2a2a, 
-      0 4px 0 #282828;
+      0 3px 0 #2a2a2a;
 }
 .option:hover{
     color:whitesmoke;
@@ -122,9 +130,9 @@ header{
     width:90%;
     display:grid;
     grid-template-columns:repeat(12,1fr);
-    grid-template-rows: repeat(6,minmax(auto,100px));
-    margin:auto;
-    transition:margin-left 0.5s;
+    grid-template-rows: repeat(5,minmax(auto,100px));
+    margin-left:62px;
+    transition:all 0.5s ease;
     overflow-x:none;
 
 
@@ -140,13 +148,13 @@ header{
     padding:1em;
     margin-left:-30px;
     transition: box-shadow 0.5s ease-in-out,transform 0.5s ease-in-out;
-    box-shadow: 5px 5px rgb(0, 0,0,0.5);
+    box-shadow: -5px 5px rgb(0, 0,0,0.5);
 }
 .words-container:hover{
-    box-shadow: 0 5px rgb(0, 0,0,0.5),
-    0 10px rgb(0, 0, 0,0.4),
-    0 15px  rgb(0, 0, 0,0.3),
-    0 20px  rgb(0, 0, 0,0.2);
+    box-shadow: -5px 5px rgb(0, 0,0,0.5),
+    -10px 10px rgb(0, 0, 0,0.4),
+    -15px 15px  rgb(0, 0, 0,0.3),
+    -20px 20px  rgb(0, 0, 0,0.2);
     transform:scale(1.01);
 }
 #words-box{
@@ -170,8 +178,8 @@ header{
 }
 .current-word{
     /* background:rgb(218, 209, 209); */
-    border-bottom: 4px black solid;
-    border-radius: 4px;
+    border-bottom: 2px black solid;
+    
  
 }
 
@@ -182,38 +190,89 @@ header{
     width:90%;
     display:flex;
     flex-direction:row;
-    justify-content:space-between;
     align-items:center;
-    grid-column:2/7;
+    grid-column:4/10;
     grid-row:3/4;
+    font-family: 'Ubuntu', sans-serif;
+}
+.input-box-container{
+    align-self: center;
+    position:relative;
+    width:50%;
+    height:90%;
+    color:#F6DACB;
+    overflow: hidden;
 }
 #input-box{
+    outline:none;
     font-size:1.2rem;
-    width:75%;
     margin:auto;
-    padding:1.2em;
+    padding:0.8em 0.2em 0 0.2em;
     border:none;
     border-radius: 5px 0 0 5px;
-    background-color:#f0efeb;
+    background-color:#355070;
+    color:#F6DACB;
+    width:100%;
+    height:100%;
+}
+
+#label{
+    width:100%;
+    height:100%;
+    position:absolute;
+    bottom:0;
+    left:0;
+    pointer-events: none;
+    border-bottom:2px #F6DACB solid;
+}
+#label::after{
+    width:100%;
+    height:100%;
+    content:"";
+    position:absolute;
+    bottom:-2px;
+    left:0;
+    color:#E28D90;
+    border-bottom:5px solid #E28D90;
+    transform:translateX(-100%);
+    transition:transform 0.3s ease;
+}
+#label-content{
+    position: absolute;
+    left:0;
+    bottom:8px;
+    margin-bottom:4px;
+    transition:all 0.3s ease;
+}
+
+#input-box:focus + #label #label-content,
+#input-box:valid + #label #label-content{
+    transform:translateY(-200%);
+    font-size:1rem;
+    color:#E28D90;
+}
+#input-box:focus + #label::after,
+#input-box:valid + #label::after{
+    transform:translateX(0%);
 }
 #time{
     text-align:center;
-    width:25%;
-    font-size:1.185rem;
-    padding:1.2em;
+    width:15%;
+    font-size:1.3rem;
+    padding-top:1.6em;
     border-radius:0 5px 5px 0;
-    background-color:#B56576;
+    color:#E56B6F;
 }
 
 #stats{
-    width:80%;
-    padding:1em;
-    display:flex;
+    width:90%;
+    height:150px;
+    display:none;
     flex-direction:row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items:center;
     /* display:none; */
-    grid-column:7/12;
+    grid-column:4/10;
     grid-row:4/6;
     align-self:center;
     justify-self:center;
@@ -221,16 +280,19 @@ header{
     box-shadow: 2px 0px 5px rgb(0, 0, 0,0.5);
     background-color:#E56B6F;
     animation-name:showStats;
-    animation-duration:2s;
+    animation-duration:1s;
     animation-timing-function:ease-in-out;
     animation-fill-mode: forwards;
     font-family: 'Fjalla One', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    overflow:hidden;
+    box-shadow: -5px 5px 5px rgb(0, 0,0,0.5);
 }
 .main{
-    font-size:2rem;
+    font-size:1.9rem;
 }
 .other{
-    font-size:1.2rem;
+    font-size:1.5rem;
 }
 @keyframes showStats{
     0%{
@@ -242,18 +304,38 @@ header{
 }
 
 .main-box{
-    padding:0.5em;
+    padding:1em;
     background-color:#E56B6F;
     color:#F6DACB;
+    display:flex;
+    flex-direction:column;
+    width:30%;
+}
+.other-container{
+    padding:1.5em;
+    background-color:#F6DACB; 
+    display:flex;
+    justify-content:space-evenly;
+    width:70%;
 }
 .other-box{
     padding:1em;
-    width:80%;
-    background-color:rgb(224, 217, 217);
     border-radius:2px;
+    display:flex;
+    flex-direction:column;
+}
+.result{
+    margin-top:1.5em;
+    text-align:center;
+    font-size:1.6rem;
+}
+#wpm{
+    border-bottom:2px #F6DACB solid;
+    font-size:1.8rem;
+    margin-top:0.5em;
 }
 #refresh{
-    width:20%;
+    width:15%;
     margin-left:1em;
     border:none;
     background-color:transparent;
@@ -269,8 +351,9 @@ header{
     background-color:#ccc;
 }
 .footer{
+    font-family: 'Ubuntu', sans-serif;
     background-color:#EA8689;
-    font-size:1rem;
+    font-size:1.2rem;
     color:#f0efeb;
     text-align:center;
     /* position:fixed;

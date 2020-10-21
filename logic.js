@@ -6,6 +6,7 @@ let time_box = document.querySelector('#time');
 let refreshImg = document.querySelector('#refresh-img');
 let statsBox = document.querySelector('#stats');
 let menuIcon = document.querySelector('.menu-icon');
+let labelContent = document.querySelector('#label-content');
 let menuItemSelected = 'top';
 helper.getWords(words_array,true);
 let word_spans = document.querySelectorAll('.word');
@@ -89,7 +90,7 @@ input_box.addEventListener('keydown',(e)=>{
     {
         clearInterval(intervalId);
         input_box.disabled = true;
-        input_box.placeholder = 'Test finished';
+        labelContent.textContent = 'Test finished';
         endTime = Date.now();
         helper.calculate_stats(totalKeyStrokes, startTime, endTime, correct_words, wrong_words);
     }
@@ -137,7 +138,7 @@ function timer(timeBegin)
         {
             input_box.disabled = true;
             console.log('called');
-            input_box.placeholder = 'Test finished';
+            labelContent.textContent = 'Test finished';
             endTime = Date.now();
             clearInterval(intervalId);
             helper.calculate_stats(totalKeyStrokes, startTime, endTime, correct_words, wrong_words);        
@@ -156,7 +157,7 @@ function refresh(flag)
     time_box.textContent = "1:00";
     input_box.disabled = false;
     statsBox.style.display = 'none';
-    input_box.placeholder = 'Type here...';
+    labelContent.textContent = 'Type here...';
     word_box.innerHTML = '';
     if(menuItemSelected === 'random')
     {
@@ -183,7 +184,6 @@ let menu = document.querySelector('#menu');
 let mainContainer = document.querySelector('.main-container');
 
 menuIcon.addEventListener('click',function(e){
-    console.log('menu opened');
     menu.style.display = 'block';
     menu.style.width = '25%';
     mainContainer.style.marginLeft = '30%';
@@ -191,9 +191,8 @@ menuIcon.addEventListener('click',function(e){
 
 let menuCloseIcon = document.querySelector('.close-menu-icon');
 menuCloseIcon.addEventListener('click',function(e){
-    console.log('menu closed');
     menu.style.width = '0';
-    mainContainer.style.marginLeft = '0%';
+    mainContainer.style.marginLeft = '62px';
 })
 
 

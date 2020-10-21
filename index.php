@@ -57,29 +57,40 @@
         </div>
     
         <div class="input-container">
-            <input type="text" id="input-box" placeholder="type here...." name="input" >
+            <div class="input-box-container">
+                <input type="text" id="input-box" name="input" autocomplete='off' required>
+                <label id='label' for="input"><span id='label-content'>Type here...</span></label>
+            </div>
             <span id='time'>1:00</span>
             <button id='refresh'><img id='refresh-img' src="images/refreshTwo.png" alt="refresh"></button>
         </div>
     
         <div id="stats">
             <div class="main-box">
-                <p class='main'>Net WPM : <span id='wpm' class='result'></span></p>
+                <p class='main'>Net WPM</p>
+                <span id='wpm' class='result'>90</span>
             </div>
-            <div class="comment-box">
-                <p class='comment'></p>
+
+            <div class="other-container">
+                <div class="comment-box">
+                    <p class='comment'></p>
+                </div>
+                <div class="other-box">
+                    <p class='other'>Correct</p>
+                    <span id='correct-words' class='result'>123</span>
+                </div>
+        
+                <div class="other-box">
+                    <p class='other'>Wrong</p>
+                    <span id='wrong-words' class='result'>3</span>
+                </div>
+        
+                <div class="other-box">
+                    <p class='other'>Accuracy</p>
+                    <span id='accuracy' class='result'>99.9</span>
+                </div>
             </div>
-            <div class="other-box">
-                <p class='other'>Correct Words : <span id='correct-words' class='result'></span></p>
-            </div>
-    
-            <div class="other-box">
-                <p class='other'>Wrong Words : <span id='wrong-words' class='result'></span></p>
-            </div>
-    
-            <div class="other-box">
-                <p class='other'>Accuracy : <span id='accuracy' class='result'></span></p>
-            </div>
+            
         </div>
 
     </div>

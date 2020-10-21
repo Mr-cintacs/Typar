@@ -1,4 +1,4 @@
- export {randomizeWords, getWords, calculate_stats};
+ export {randomizeWords, getWords, calculate_stats,getComment};
 
  let word_box = document.getElementById('words-box');
  let statsBox = document.querySelector('#stats');
@@ -48,7 +48,7 @@ function calculate_stats(entries, startTime, endTime, correct, wrong)
     let minutesTaken = timeTaken/60;
     let netWpm = ((entries/5) - wrong )/ minutesTaken;
     let grossWpm = ((entries/5)/minutesTaken);
-    let accuracy = (netWpm/grossWpm) * 100;
+    let accuracy = ((netWpm/grossWpm) * 100) + '%';
 
     if(isNaN(accuracy))
     {
@@ -57,7 +57,46 @@ function calculate_stats(entries, startTime, endTime, correct, wrong)
 
     wpm.textContent = netWpm;
     correctField.textContent = correct;
+    correctField.style.color = '#2a9d8f';
     wrongField.textContent = wrong;
+    wrongField.style.color = '#DA2F35';
     accField.textContent = accuracy;
 }
 
+function getComment(typingSpeed)
+{
+    let comment = '';
+
+    if(typingSpeed <=10 )
+    {
+        comment = 'Slow down Flash!';
+    }
+    else if(typingSpeed <= 20)
+    {
+        comment = 'YIKES';
+    }
+    else if(typingSpeed <= 30)
+    {
+        comment = 'ok BOOMER!';
+    }
+    else if(typingSpeed <= 40)
+    {
+        comment = 'Easy there grandma.';
+    }
+    else if(typingSpeed <= 50)
+    {
+        comment = 'Decent!!';
+    }
+    else if(typingSpeed <= 60)
+    {
+        comment = 'You are now officially AVERAGE!';
+    }
+    else if(typingSpeed <= 70)
+    {
+        comment = 'Getting better';
+    }else if(typingSpeed <= 80)
+    {
+        comment = 'The goal is near !!';
+    }
+    return comment;
+}
