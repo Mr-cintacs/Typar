@@ -47,12 +47,25 @@ function calculate_stats(entries, startTime, endTime, correct, wrong)
     let timeTaken = Math.floor((endTime - startTime)/1000);
     let minutesTaken = timeTaken/60;
     let netWpm = Math.floor(((entries/5) - wrong )/ minutesTaken);
-    let grossWpm = ((entries/5)/60);
-    let accuracy = ((netWpm/grossWpm) * 100) + '%';
+    let grossWpm = ((entries/5)/minutesTaken);
+    let accuracy = ((netWpm/grossWpm) * 100);
+    console.log(`the netWpm is = ${netWpm}`);
+    console.log(`the grossWpm is = ${grossWpm}`)
+    console.log(`the accuracy is = ${accuracy}`);
 
-    if(isNaN(accuracy))
+    if(isNaN(accuracy) || accuracy <= 0)
     {
+        console.log('the accruracy is NaN');
         accuracy = 'N/A';
+        accField.textContent = accuracy;
+    }
+    else
+    {
+        accField.textContent = accuracy + '%';
+    }
+    if(netWpm <=0 )
+    {
+        netWpm = 0;
     }
 
     wpm.textContent = netWpm;
@@ -60,7 +73,7 @@ function calculate_stats(entries, startTime, endTime, correct, wrong)
     correctField.style.color = '#2a9d8f';
     wrongField.textContent = wrong;
     wrongField.style.color = '#DA2F35';
-    accField.textContent = accuracy;
+  
 }
 
 function getComment(typingSpeed)
